@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+		* {
+			margin: 0;
+			padding: 0;
+		}
+		ul {
+			list-style: none;
+			overflow: hidden;
+		}
+		li {
+			width: 236px;
+			float: left;
+			margin-right: 16px;
+		}
+		li:last-child {
+			margin-right: 0;
+		}
+		.container {
+			width:  1244px;
+			margin: 0 auto;
+		}
+		.item {}
+		.item .img {
+			width: 100%;
+		}
+		.item .img img {
+			width: 100%;
+		}
+		.item .middle {
+			height: 66px;
+			font-size: 12px;
+			padding-left: 16px;
+		}
+		.item .middle .title {
+			line-height: 33px;
+		}
+		.item .middle .info {
+			line-height: 33px;
+		}
+		.item .middle .info span[class^="icon"] {
+			width: 12px;
+			height: 12px;
+			background-image: url("./img/bt_action_icons.svg");
+		}
+		.item .middle .info span {
+			display: inline-block;
+			height: 12px;
+			font-size: 12px;
+			line-height: 1;
+		}
+		.item .middle .info .icon1 {
+			background-position: 42px 1px;
+		}
+		.item .middle .info .text1 {
+			
+		}
+
+		.item .middle .info .icon2 {
+			background-position: 0 0;
+		}
+		.item .middle .info .text2 {
+
+		}
+
+		.item .user {
+			height: 37px;
+			border-top: 1px solid #eee;
+			overflow: hidden;
+			padding-left: 5px;
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
+		.item .user .head_img {
+			float: left;
+			width:36px;
+			padding: 0 9px;
+			height: 100%;
+		}
+		.item .user .head_img img {
+			width: 100%;
+			height: 100%;
+			border-radius: 50%;
+		}
+		
+		.item .user .operate {
+			float: left;
+			font-size: 12px;
+		}
+		.item .user .operate .top  {
+			line-height: 18px;
+		}
+		.item .user .operate .top a {
+			display: inline-block;
+			max-width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.item .user .operate .top span {
+			display: inline-block;
+			max-width: 100px;
+			overflow: hidden;
+			white-space: nowrap;
+		}
+		.item .user .operate .bottom {
+			line-height: 18px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<ul>
+			<li>
+				<div class="item">
+					<div class="img">
+						<img src="//img.hb.aicdn.com/596c467e10a5ebbc527700fa15382e826e147d6838489-5OzlLn_fw236" width="236" height="236" alt="西瓜-凉凉采集到水果 食品类" data-baiduimageplus-ignore="1">
+					</div>
+					<div class="middle">
+						<div class="title">苹果</div>
+						<div class="info">
+							<span class="icon1"></span>
+							<span class="text1">50</span>
+							<span class="icon2"></span>
+							<span class="text2">40</span>
+						</div>
+					</div>
+					<div class="user">
+						<div class="head_img">
+							<img src="http://img.hb.aicdn.com/d8479b597ad3a761f4eda576e20ff9b9bbae0b9842845-bLslnT_sq75sf" alt="">
+						</div>
+						<div class="operate">
+							<div class="top">
+								<a href="javascript:void(0);">西瓜-凉凉</a><span>采集到</span>
+							</div>
+							<div class="bottom">
+								<a href="javascript:void(0);">水果、食品类</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+
+<script type="text/template" id="tpl">
+	<div class="item">
+		<div class="img">
+			<img src="//img.hb.aicdn.com/<%file.key%>" alt="">
+		</div>
+		<div class="middle">
+			<div class="title"><%raw_text%></div>
+			<div class="info">
+				<span class="icon1"></span>
+				<span class="text1"><%repin_count%></span>
+				<span class="icon2"></span>
+				<span class="text2"><%like_count%></span>
+			</div>
+		</div>
+		<div class="user">
+			<div class="head_img">
+				<img src="http://img.hb.aicdn.com/<%user.avatar.key%>" alt="">
+			</div>
+			<div class="operate">
+				<div class="top">
+					<a href="javascript:void(0);"><%user.username%></a><span>采集到</span>
+				</div>
+				<div class="bottom">
+					<a href="javascript:void(0);"><%board.title%></a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+
+
+	
+</script>
+	<script type="text/javascript" src="./jquery.js"></script>
+	<script type="text/javascript">
+		// // 获取字符串模板
+		var tpl = document.getElementById("tpl");
+		var tpl_str = tpl.innerHTML;
+		// 获取所有的lis
+		var lis = document.getElementsByTagName("li");
+		// 定义高度映射数组
+		var height_arr = new Array(lis.length).fill(0);
+		// 请求第一个1.json文件中的数据 并将内容显示出来
+		var sendAjax = function(num) {
+			$.ajax({
+				url: "/data/" + num + ".json",
+				type: "get",
+				dataType: "json",
+				success: function(data) {
+					var arr = data.pins;
+					arr.forEach(function(value) {
+						// 格式化
+						var result_str = format(tpl_str, value);
+						// 获取最小的数组的项的下标
+						var idx = getMinIdx(height_arr);
+						// idx是最小的数组项的下标 lis[idx]就是最矮的列
+						lis[idx].innerHTML += result_str;
+						// 此时 已经上树了， 高度数组应当发生变化
+						// 计算真实的页面所占高度
+						var real_height = 236 * value.file.height / value.file.width;
+						height_arr[idx] += real_height + 66 + 68;
+					});
+				}
+			}); 
+		}
+		// 定义一个信号量
+		var idx = 1;
+		sendAjax(idx);
+		idx++;
+
+		// 定义一个timer
+		var timer = null;
+		// 当用户滚动滚轮改变页面卷动值的时候 要监听是否快要滚动到底部 如果触发条件 则发送新的ajax 请求新的数据 填充到页面底部
+		document.body.onscroll = function() {
+			// 获取页面的总高
+			var page_height = document.body.clientHeight;
+			// 获取当前视口的高度
+			var client_height = document.documentElement.clientHeight;
+			// 获取当前的页面卷动值的高度
+			var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+			console.log(page_height, client_height, scrollTop);
+
+			// 如果scrollTop + client_height + 200 大于 page_height 说明距离底部已经不到200px  此时我们可以触发ajax
+			if (scrollTop + client_height + 200 > page_height) {
+				// 先清除timer 再设置timer为一个延时器
+				clearTimeout(timer);
+				timer = setTimeout(function() {
+					sendAjax(idx);
+					idx++;
+				}, 500)
+			}
+		}
+ 
+		// 获取数组中最小的项的下标
+		function getMinIdx(arr) {
+			// 默认第0项最小
+			var idx = 0;
+			var item = arr[idx];
+			// 循环与后面的比较
+			for (var i = 1; i < arr.length; i++) {
+				if (item > arr[i]) {
+					idx = i;
+					item = arr[i];
+				}
+			}
+			return idx;
+		}
+
+		// 定义格式化函数
+		function format(tpl, dic) {
+			// 返回一个被格式化之后的字符串
+			return tpl.replace(/<%(\w+(\.\w+)*)%>/g, function(match, $1) {
+				// 将$1以.分割
+				var pathArr = $1.split(".");
+				// 定义变量 引用dic 防止dic的地址发生变化
+				var result = dic;
+				// 开始循环每一层级 除了最后一层之外
+				for (var i = 0; i < pathArr.length - 1; i++) {
+					result = result[pathArr[i]];
+				}
+				return result[pathArr[i]];
+			})
+		}
+	</script>
+</body>
+</html>
